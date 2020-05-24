@@ -86,7 +86,7 @@ int main() {
 		int leastFinishIndex = 0;
 		double leastFinishTime = INF;
         for(int j = 0; j < vmCount; ++j) {
-            double finishTime = vmFinishTime[j] + (clientRequests[i].instructionCount * 1.0) / VMs[j].capacity;
+            double finishTime = max(vmFinishTime[j], double(clientRequests[i].startTime)) + (clientRequests[i].instructionCount * 1.0) / VMs[j].capacity;
             if(finishTime < leastFinishTime) {
                 leastFinishTime = finishTime;
                 leastFinishIndex = j;
@@ -99,9 +99,9 @@ int main() {
     // SJF + Ageing
     double totalResponse = 0;
     for(int i = 0; i < vmCount; ++i) {
-        int timer = 0;
+        double timer = 0;
         for(int j = 0; j < allotedRequest[i].size(); ++j) {
-            timer += (allotedRequest[i][j].instructionCount * 1.0) / VMs[i].capacity;
+            timer = max(timer, double(allotedRequest[i][j].startTime)) + (allotedRequest[i][j].instructionCount * 1.0) / VMs[i].capacity;
             totalResponse += (timer - allotedRequest[i][j].startTime);
             int beginSort = j + 1, endSort = j + 1;
             for(int k = j + 1; k < allotedRequest[i].size(); ++k) {

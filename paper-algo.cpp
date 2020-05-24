@@ -53,7 +53,6 @@ int main() {
     vector<double> vmFinishTime(vmCount, 0);
 
     vector<ClientRequest> clientRequests(clientRequestCount);
-    vector<double> requestFinishTime(clientRequestCount, 0);
     
     for(int i = 0; i < vmCount; ++i) {
         int coreCount;
@@ -77,25 +76,23 @@ int main() {
     sort(clientRequests.begin(), clientRequests.end(), clientComparator);
 
     // Allot requests and process them in same order (FIFO)
+    double totalResponse = 0;
     for(int i = 0; i < clientRequestCount; ++i) {
 		int leastFinishIndex = 0;
 		double leastFinishTime = INF;
         for(int j = 0; j < vmCount; ++j) {
-            double finishTime = vmFinishTime[j] + (clientRequests[i].instructionCount * 1.0) / VMs[j].capacity;
+            double finishTime = max(vmFinishTime[j], double(clientRequests[i].startTime)) + (clientRequests[i].instructionCount * 1.0) / VMs[j].capacity;
             if(finishTime < leastFinishTime) {
                 leastFinishTime = finishTime;
                 leastFinishIndex = j;
             }
         }
-        requestFinishTime[i] = leastFinishTime;
+        totalResponse += (leastFinishTime - clientRequests[i].startTime);
         vmFinishTime[leastFinishIndex] = leastFinishTime;
+        cout << clientRequests[i].startTime << " " << leastFinishTime << "\n";
 	}
 
     // Calculate response time
-    double totalResponse = 0;
-    for(int i = 0; i < clientRequestCount; ++i) {
-        totalResponse += (requestFinishTime[i] - clientRequests[i].startTime);
-    }
     double netResponse = totalResponse / (clientRequestCount * 1.0);
     cout << "Net Response Time: " << fixed << setprecision(6) << netResponse << endl;
     return 0;
