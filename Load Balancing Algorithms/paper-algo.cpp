@@ -77,6 +77,7 @@ int main() {
 
     // Allot requests and process them in same order (FIFO)
     double totalResponse = 0;
+    vector<double> throughput;
     for(int i = 0; i < clientRequestCount; ++i) {
 		int leastFinishIndex = 0;
 		double leastFinishTime = INF;
@@ -89,10 +90,13 @@ int main() {
         }
         totalResponse += (leastFinishTime - clientRequests[i].startTime);
         vmFinishTime[leastFinishIndex] = leastFinishTime;
+        throughput.push_back((leastFinishTime - clientRequests[i].startTime));
 	}
+    sort(throughput.begin(), throughput.end());
 
     // Calculate response time
     double netResponse = totalResponse / (clientRequestCount * 1.0);
     cout << "Net Response Time: " << fixed << setprecision(6) << netResponse << endl;
+    cout << "Response Throughput: " << fixed << setprecision(6) << throughput[clientRequestCount / 2] << endl;
     return 0;
 }

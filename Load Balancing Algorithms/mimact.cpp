@@ -98,11 +98,13 @@ int main() {
 
     // SJF + Ageing
     double totalResponse = 0;
+    vector<double> throughput;
     for(int i = 0; i < vmCount; ++i) {
         double timer = 0;
         for(int j = 0; j < allotedRequest[i].size(); ++j) {
             timer = max(timer, double(allotedRequest[i][j].startTime)) + (allotedRequest[i][j].instructionCount * 1.0) / VMs[i].capacity;
             totalResponse += (timer - allotedRequest[i][j].startTime);
+            throughput.push_back((timer - allotedRequest[i][j].startTime));
             int beginSort = j + 1, endSort = j + 1;
             for(int k = j + 1; k < allotedRequest[i].size(); ++k) {
                 if(allotedRequest[i][k].startTime <= timer) {
@@ -113,9 +115,11 @@ int main() {
             sort(allotedRequest[i].begin() + beginSort, allotedRequest[i].begin() + endSort + 1, sjfOrderingComparator);
         }
     }
+    sort(throughput.begin(), throughput.end());
 
     // Calculate response time
     double netResponse = totalResponse / (clientRequestCount * 1.0);
     cout << "Net Response Time: " << fixed << setprecision(6) << netResponse << endl;
+    cout << "Response Throughput: " << fixed << setprecision(6) << throughput[clientRequestCount / 2] << endl;
     return 0;
 }
