@@ -1,3 +1,13 @@
+/**
+    MIMACT
+    Purpose: Load Balancing Algorithm Based on Estimating
+                Finish Time of Services in Cloud Computing
+
+    @author Aditi Gupta
+    @author Dibyadarshan Hota
+    @author Annappa .B 
+*/
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -87,6 +97,6 @@ int main() {
         totalResponse += (requestFinishTime[i] - clientRequests[i].startTime);
     }
     double netResponse = totalResponse / (clientRequestCount * 1.0);
-    cout << fixed << setprecision(6) << netResponse << endl;
+    cout << "Net Response Time: " << fixed << setprecision(6) << netResponse << endl;
     return 0;
 }
