@@ -48,7 +48,7 @@ int main() {
         VM.coreCount = (rand() % 5) + 5;
         cout << VM.coreCount << " ";
         for(int j = 0; j < VM.coreCount; ++j) {
-            int speed = (rand() % 30) + 30;
+            int speed = (rand() % 10) + 10;
             cout << speed << " ";
         }
         cout << "\n";
@@ -56,7 +56,7 @@ int main() {
 
     for(int i = 0; i < clientRequestCount; ++i) {
         int startTime, instructionCount;
-        startTime = (rand() % 100) + 10;
+        startTime = (rand() % 40) + 1;
         instructionCount = (rand() % 500) + 10;
         cout << startTime << " " << instructionCount << "\n";
     }

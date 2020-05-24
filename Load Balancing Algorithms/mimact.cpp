@@ -16,9 +16,9 @@ class ClientRequest {
     public:
         int startTime;
         int instructionCount;
-        int age;
+        double age;
 
-    ClientRequest(int start = 0, int instruction = 0, int age = 0) {
+    ClientRequest(int start = 0, int instruction = 0, double age = 0) {
         startTime = start;
         instructionCount = instruction;
         this->age = age;

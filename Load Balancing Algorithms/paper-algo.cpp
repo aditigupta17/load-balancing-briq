@@ -89,7 +89,6 @@ int main() {
         }
         totalResponse += (leastFinishTime - clientRequests[i].startTime);
         vmFinishTime[leastFinishIndex] = leastFinishTime;
-        cout << clientRequests[i].startTime << " " << leastFinishTime << "\n";
 	}
 
     // Calculate response time
