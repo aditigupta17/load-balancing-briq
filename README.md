@@ -9,7 +9,7 @@ Finish Time of Services in Cloud Computing", paper's code can be run using:
 
 `$ g++ paper-algo.cpp && ./a.out > outputfile < ../datagenerator/inputfile`
 
-Similarly, MIMAC can be run as follows:
+Similarly, MIMACT can be run as follows:
 
 `$ cd "Load Balancing Algorithms"`
 
