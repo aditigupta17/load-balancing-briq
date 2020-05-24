@@ -85,20 +85,22 @@ int main() {
             }
         }
         requestFinishTime[i] = leastFinishTime;
+        vmFinishTime[leastFinishIndex] = leastFinishTime;
         allotedRequest[leastFinishIndex].push_back(clientRequests[i]);
 	}
 
     // SJF + Ageing
+    double totalResponse = 0;
     for(int i = 0; i < vmCount; ++i) {
         int timer = 0;
         for(int j = 0; j < allotedRequest[i].size(); ++j) {
             timer += (allotedRequest[i][j].instructionCount * 1.0) / VMs[i].capacity;
-            requestFinishTime[j] = timer;
+            totalResponse += (timer - allotedRequest[i][j].startTime);
             int beginSort = j + 1, endSort = j + 1;
             for(int k = j + 1; k < allotedRequest[i].size(); ++k) {
                 if(allotedRequest[i][k].startTime <= timer) {
                     endSort = k;
-                    allotedRequest[i][k].age += (timer - allotedRequest[i][k].startTime);
+                    allotedRequest[i][k].age = (timer - allotedRequest[i][k].startTime);
                 }
             }
             sort(allotedRequest[i].begin() + beginSort, allotedRequest[i].begin() + endSort + 1, sjfOrderingComparator);
@@ -106,20 +108,7 @@ int main() {
     }
 
     // Calculate response time
-    double totalResponse = 0;
-    for(int i = 0; i < clientRequestCount; ++i) {
-        cout << requestFinishTime[i] << " ";
-        totalResponse += (requestFinishTime[i] - clientRequests[i].startTime);
-    }
     double netResponse = totalResponse / (clientRequestCount * 1.0);
     cout << fixed << setprecision(6) << netResponse << endl;
     return 0;
 }
-// https://google.github.io/styleguide/cppguide.html
-/*
-1 3
-1 100
-0 1000
-10 100
-5 1000
-*/

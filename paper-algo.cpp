@@ -84,18 +84,9 @@ int main() {
     // Calculate response time
     double totalResponse = 0;
     for(int i = 0; i < clientRequestCount; ++i) {
-        cout << requestFinishTime[i] << " ";
         totalResponse += (requestFinishTime[i] - clientRequests[i].startTime);
     }
     double netResponse = totalResponse / (clientRequestCount * 1.0);
     cout << fixed << setprecision(6) << netResponse << endl;
     return 0;
 }
-// https://google.github.io/styleguide/cppguide.html
-/*
-1 3
-1 100
-0 1000
-10 100
-5 1000
-*/
