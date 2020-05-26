@@ -1,10 +1,9 @@
 /**
-    MIMACT
-    Purpose: Load Balancing Algorithm
+	Load Balancing Algorithm for Better Response Time using Improved Queuing (BRIQ)	    
 
-    @author Aditi Gupta
-    @author Dibyadarshan Hota
-    @author Annappa .B 
+	@author Aditi Gupta
+	@author Dibyadarshan Hota
+	@author Annappa .B 
 */
 
 #include <bits/stdc++.h>
