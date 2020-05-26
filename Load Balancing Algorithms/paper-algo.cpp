@@ -1,7 +1,8 @@
 /**
-    MIMACT
-    Purpose: Load Balancing Algorithm Based on Estimating
-                Finish Time of Services in Cloud Computing
+	Load Balancing Algorithm Based on Estimating
+   	Finish Time of Services in Cloud Computing
+	
+	Link: https://ieeexplore.ieee.org/document/7423340?arnumber=7423340
 
     @author Aditi Gupta
     @author Dibyadarshan Hota
